@@ -31,6 +31,7 @@ software for ANY commercial usage.
        page_collector.adopt(proxy_instance).collect
     end
   end
+  
   report.summary
   html_book_weaver(output_dir)
   
