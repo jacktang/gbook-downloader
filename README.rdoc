@@ -2,8 +2,8 @@
   
   Well, Google is great company I should always show my respects. I create gbook-download 
 project is not going to make offenses to the company. I am a very curious guy, and want to 
-know this question: If one book is composed with 500 pages and only 20 pages is public, how
-many proxies/request should send in order to get one completed book?
+find the answer for the question: If one book is composed with 500 pages and only 20 pages 
+is public, how many proxies/requests should send in order to get one completed book?
 
   The project is setup with anti-business purpose, you are warned NOT to adopt this opensource
 software for ANY commercial usage.
