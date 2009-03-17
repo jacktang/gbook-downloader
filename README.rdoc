@@ -24,16 +24,16 @@ software for ANY commercial usage.
 * PageCollector takes preview-book-url as input, and try to find as many pages as it can. When the new page is found, it should download to local disk. The result of PageCollector is page array with page name, order and local path.
 * BookWeaver takes the local page collection as input and merges it into one PDF document or HTML document.
 
-  
-    while((downloaded_page_count < total_page_count) || (proxy_instance_candidate_pool.size > 0)) do
-      proxy_instance = proxy_instance_candidate_pool.select
-      if(proxy_manager.test(proxy_instance))
-        page_collector.adopt(proxy_instance).collect
-      end
+= Pseudo-code
+
+  while((downloaded_page_count < total_page_count) || (proxy_instance_candidate_pool.size > 0)) do
+    proxy_instance = proxy_instance_candidate_pool.select
+    if(proxy_manager.test(proxy_instance))
+      page_collector.adopt(proxy_instance).collect
     end
-  
-    report.summary
-    html_book_weaver(output_dir)
+  end
+  report.summary
+  html_book_weaver(output_dir)
   
 
 = Usage
