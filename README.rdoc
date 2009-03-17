@@ -17,3 +17,11 @@ software for ANY commercial usage.
   proxy instance --+ |                                                    +---> html
                      |
                  test proxy
+
+= Usage
+  
+  $ sudo gem install gbook-downloader
+
+  $ gbook-downloader <preview-url> [-d <book-output-dir>] 
+ 
+  
