@@ -19,10 +19,10 @@ software for ANY commercial usage.
                  test proxy
 
 
- * ProxyProvider is the public proxy provider on Internet, it provides a list of public proxies. Some are accessed to you while others are not, so the proxy instance should be test
- * ProxyManager invokes ProxyProvider one by one, and state the common proxy tests. If the proxy instance passed, it will be cached, meanwhile, PageCollector adopts the proxy candidate.
- * PageCollector takes preview-book-url as input, and try to find as many pages as it can. When the new page is found, it should download to local disk. The result of PageCollector is page array with page name, order and local path.
- * BookWeaver takes the local page collection as input and merges it into one PDF document or HTML document.
+* ProxyProvider is the public proxy provider on Internet, it provides a list of public proxies. Some are accessed to you while others are not, so the proxy instance should be test
+* ProxyManager invokes ProxyProvider one by one, and state the common proxy tests. If the proxy instance passed, it will be cached, meanwhile, PageCollector adopts the proxy candidate.
+* PageCollector takes preview-book-url as input, and try to find as many pages as it can. When the new page is found, it should download to local disk. The result of PageCollector is page array with page name, order and local path.
+* BookWeaver takes the local page collection as input and merges it into one PDF document or HTML document.
 
 = Usage
   
