@@ -1,11 +1,11 @@
 = Google Book Downloader
   
-Well, Google is great company I should always show my respects. I create gbook-download 
-project is not going to make offenses to the company. I am a very curious guy, and want to 
-find the answer for the question: If one book is composed with 500 pages and only 20 pages 
-is public, how many proxies/requests should send in order to get one completed book?
+Well, Google is great company I should always show my respects. I create gbook-downloader 
+project is not going to make some offenses to the company. I am a very curious guy, and want to 
+find the answer for the question: If one book is composed with 500 pages and only 20 random pages 
+is public to individual, how many proxies/requests should send in order to get one completed book?
 
-The project is setup with anti-business purpose, you are warned NOT to adopt this opensource
+WARNING: The project is setup with anti-business purpose, you are warned NOT to adopt this opensource
 software for ANY commercial usage.
   
 = Design
@@ -20,7 +20,7 @@ software for ANY commercial usage.
 
 
 * ProxyProvider is the public proxy provider on Internet, it provides a list of public proxies. Some are accessed to you while others are not, so the proxy instance should be test
-* ProxyManager invokes ProxyProvider one by one, and state the common proxy tests. If the proxy instance passed, it will be cached, meanwhile, PageCollector adopts the proxy candidate.
+* ProxyManager invokes ProxyProvider one by one, and states the common proxy tests. If the proxy instance passes the tests, it should be cached, meanwhile, PageCollector adopts the proxy instance candidate.
 * PageCollector takes preview-book-url as input, and try to find as many pages as it can. When the new page is found, it should download to local disk. The result of PageCollector is page array with page name, order and local path.
 * BookWeaver takes the local page collection as input and merges it into one PDF document or HTML document.
 
@@ -33,7 +33,7 @@ software for ANY commercial usage.
     end
 
     report.summary
-    html_book_weaver(output_dir)
+    html_book_weaver.weave(output_dir)
   
 
 = Usage
