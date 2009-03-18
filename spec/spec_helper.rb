@@ -7,6 +7,7 @@ rescue LoadError
 end
 
 $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + "/../lib"))
-require 'evented_http'
-
-require File.dirname(__FILE__) + '/stallion'
+require 'book'
+require 'downloader'
+require 'page_collector'
+require 'book_weaver'

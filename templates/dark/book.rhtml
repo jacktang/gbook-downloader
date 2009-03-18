@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title><%=book.title%></title>
+
+	<link rel="stylesheet" href="http://jacktang.github.com/gbd/templates/dark/dark.css" media="screen" />
+  <script type="text/javascript" src="http://jacktang.github.com/gbd/templates/dark/jquery.js"></script>
+	<script type="text/javascript" src="http://jacktang.github.com/gbd/templates/dark/jquery.gallery.js"></script>
+	<style type="text/css">
+		ul.gallery {
+			width: 700px;
+			list-style: none;
+			margin: 0 auto;
+			padding: 0;
+		}
+	</style>
+</head>
+
+<body>
+  <ul class="gallery">
+    <% @local_pages.each do |tupe|
+         pid, src, dest = tupe
+     %>
+	    <li><img src="<%=dest%>" alt="" longdesc="<%=pid%>" /></li>
+    <%end %>
+  </ul>
+		
+	<script type="text/javascript">
+		$('ul.gallery img').gallery(null,null,
+			function(){
+				var imageOffset = $('#img-gallery img').offset()
+				var bottomOfImage = $('#img-gallery img').height() - $('#img-description').height();
+									$('#img-description').css({top: bottomOfImage,opacity:0.6});
+				$('#img-gallery ul').css({right: -$('#img-gallery ul').width()+10});
+											}
+			);
+	</script>
+
+</body>
+
+</html>
