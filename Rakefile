@@ -9,7 +9,7 @@ spec = Gem::Specification.load(File.join(File.dirname(__FILE__), 'gbook-download
 desc 'Run all specs in spec directory'
 Spec::Rake::SpecTask.new(:spec) do |t|
   t.spec_opts = ['--options', "\"spec/spec.opts\""]
-  t.spec_files = FileList['spec/**/*/*_spec.rb']
+  t.spec_files = FileList['spec/**/*_spec.rb']
 end
 
 desc 'Build rdoc'

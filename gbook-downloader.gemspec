@@ -8,7 +8,7 @@ spec = Gem::Specification.new do |s|
   s.homepage = "http://github.com/jacktang/gbook-downloader"
   s.has_rdoc = true
   s.authors = ["Jack Tang"]
-  # s.add_dependency('eventmachine', '>= 0.12.2')
+  s.add_dependency('nokogiri', '>= 1.2.2')
   # s.extensions = ["ext/em_buffer/extconf.rb" , "ext/http11_client/extconf.rb"]
 
   s.require_path = 'lib'
