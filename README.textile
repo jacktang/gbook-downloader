@@ -37,7 +37,9 @@ h2. Design
     html_book_weaver.weave(output_dir)
 </pre>  
 
+  
 h2. Usage
+
 <pre>
   sudo gem install gbook-downloader
 
@@ -46,6 +48,7 @@ h2. Usage
   examples:
   gbook-downloader http://books.google.com/books?id=Tmy8LAaVka8C -d ~/gbooks
 </pre>
+
 
 h2. Samples
 
