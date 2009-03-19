@@ -47,7 +47,8 @@ h2. Usage
   examples:
   gbook-downloader http://books.google.com/books?id=Tmy8LAaVka8C -d ~/gbooks
 </pre>
-       
+                  
+                 
 h2. Samples
 
 * "Sometimes It's Turkey. Sometimes It's Feathers (mini)":http://jacktang.github.com/gbd/sample/mini/Sometimes_It_s_Turkey__Sometimes_It_s_Feathers/index.html
