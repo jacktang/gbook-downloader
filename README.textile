@@ -55,5 +55,5 @@ Below is the guide for installling GoogleBookDownloader and how to use it.
 
 * Usage
 <pre>
-  gbook-downloader <preview-url> [-d <book-output-dir>] 
+  gbook-downloader http://books.google.com/books?id=Tmy8LAaVka8C -d ~/gbooks
 </pre>                                   
