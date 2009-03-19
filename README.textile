@@ -1,15 +1,16 @@
-= Google Book Downloader
+h1. Google Book Downloader
   
 Well, Google is great company I should always show my respects. I create gbook-downloader 
 project is not going to make some offenses to the company. I am a very curious guy, and want to 
 find the answer for the question: If one book is composed with 500 pages and only 20 random pages 
 is public to individual, how many proxies/requests should send in order to get one completed book?
 
-WARNING: The project is setup with anti-business purpose, you are warned NOT to adopt this opensource
-software for ANY commercial usage.
+*WARNING*: The project is setup with anti-business purpose, you are warned *NOT* to adopt this opensource
+software for *ANY* commercial usage.
   
-= Design
+h2. Design
 
+<pre>
   ProxyProviderA --+                                                      +---> images
   ProxyProviderB --|                url              page          output | 
   ...            --|--> ProxyManager -> PageCollector -> BookWeaver ------|---> pdf 
@@ -17,14 +18,14 @@ software for ANY commercial usage.
   ProxyProviderZ --+ |                                                    +---> html
                      |
                  test proxy
-
+</pre>
 
 * ProxyProvider is the public proxy provider on Internet, it provides a list of public proxies. Some are accessed to you while others are not, so the proxy instance should be test
 * ProxyManager invokes ProxyProvider one by one, and states the common proxy tests. If the proxy instance passes the tests, it should be cached, meanwhile, PageCollector adopts the proxy instance candidate.
 * PageCollector takes preview-book-url as input, and try to find as many pages as it can. When the new page is found, it should download to local disk. The result of PageCollector is page array with page name, order and local path.
 * BookWeaver takes the local page collection as input and merges it into one PDF document or HTML document.
 
-
+<pre>
     while((downloaded_page_count < total_page_count) || (proxy_instance_candidate_pool.size > 0)) do
       proxy_instance = proxy_instance_candidate_pool.select
       if(proxy_manager.test(proxy_instance))
@@ -34,17 +35,18 @@ software for ANY commercial usage.
 
     report.summary
     html_book_weaver.weave(output_dir)
-  
+</pre>  
 
-= Usage
-  
+h2. Usage
+<pre>
   sudo gem install gbook-downloader
 
   gbook-downloader <preview-url> [-d <book-output-dir>] 
 
   examples:
   gbook-downloader http://books.google.com/books?id=Tmy8LAaVka8C -d ~/gbooks
+</pre>
 
-= Samples
+h2. Samples
 
-* "Sometimes It's Turkey. Sometimes It's Feathers"[http://jacktang.github.com/gbd/sample/mini/Sometimes_It_s_Turkey__Sometimes_It_s_Feathers/index.html]  
+* "Sometimes It's Turkey. Sometimes It's Feathers (mini)":http://jacktang.github.com/gbd/sample/mini/Sometimes_It_s_Turkey__Sometimes_It_s_Feathers/index.html
