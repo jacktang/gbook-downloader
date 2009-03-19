@@ -39,10 +39,10 @@ h2. Design
   
 h2. Samples
 
-I take the book "Sometimes It's Turkey. Sometimes It's Feathers" as sample which is composed with 32 pages. 
+I take the book "Sometimes It's Turkey. Sometimes It's Feathers":http://books.google.com/books?id=Tmy8LAaVka8C as sample which is composed with 32 pages. 
 
-* "Sometimes It's Turkey. Sometimes It's Feathers (mini)":http://jacktang.github.com/gbd/sample/mini/Sometimes_It_s_Turkey__Sometimes_It_s_Feathers/index.html
-
+* "Part Edition":http://jacktang.github.com/gbd/sample/mini/Sometimes_It_s_Turkey__Sometimes_It_s_Feathers/index.html
+* Full Edition (to hack)
 
 h2. Usage
 
