@@ -37,6 +37,13 @@ h2. Design
     html_book_weaver.weave(output_dir)
 </pre>  
   
+h2. Samples
+
+I take the book "Sometimes It's Turkey. Sometimes It's Feathers" as sample which is composed with 32 pages. 
+
+* "Sometimes It's Turkey. Sometimes It's Feathers (mini)":http://jacktang.github.com/gbd/sample/mini/Sometimes_It_s_Turkey__Sometimes_It_s_Feathers/index.html
+
+
 h2. Usage
 
 Below is the guide for installling GoogleBookDownloader and how to use it.
@@ -50,10 +57,4 @@ Below is the guide for installling GoogleBookDownloader and how to use it.
 <pre>
   gbook-downloader <preview-url> [-d <book-output-dir>] 
   gbook-downloader http://books.google.com/books?id=Tmy8LAaVka8C -d ~/gbooks
-</pre>
-                                   
-h2. Samples
-
-I take the book "Sometimes It's Turkey. Sometimes It's Feathers" as sample which is composed with 32 pages. 
-
-* "Sometimes It's Turkey. Sometimes It's Feathers (mini)":http://jacktang.github.com/gbd/sample/mini/Sometimes_It_s_Turkey__Sometimes_It_s_Feathers/index.html
+</pre>                                   
