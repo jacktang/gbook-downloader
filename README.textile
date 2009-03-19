@@ -39,6 +39,8 @@ h2. Design
   
 h2. Usage
 
+Below is the guide for installling GoogleBookDownloader and how to use it.
+
 <pre>
   sudo gem install gbook-downloader
 
@@ -50,5 +52,7 @@ h2. Usage
 </pre>
                                    
 h2. Samples
+
+I take the book "Sometimes It's Turkey. Sometimes It's Feathers" as sample which is composed with 32 pages. 
 
 * "Sometimes It's Turkey. Sometimes It's Feathers (mini)":http://jacktang.github.com/gbd/sample/mini/Sometimes_It_s_Turkey__Sometimes_It_s_Feathers/index.html
