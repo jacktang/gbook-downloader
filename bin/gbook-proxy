@@ -1,0 +1,35 @@
+#!/usr/bin/ruby1.8
+
+require 'rubygems'
+$LOAD_PATH.unshift(File.dirname(__FILE__) + '/../lib')
+require 'proxies'
+require 'version'
+
+class GBookProxy
+  def update_proxies
+    pm = GBookDownloader::Proxies::ProxyManager.new
+    pm.proxy_providers << GBookDownloader::Proxies::RosinstrumentProvider.new
+    pm.collect_proxies
+  end
+  
+  def help
+    sep = "\n"
+    menu = "\ncommands:\n  update\t Update proxy database"
+    return "#{header}#{sep}#{menu}"
+  end
+
+  def header
+    return "GBookDownloader version:#{GBookDownloader::Version.value}"
+  end
+end
+
+if __FILE__ == $0
+  # The command line:
+  #  gbook-proxy update
+  proxy = GBookProxy.new
+  if(ARGV.size>0 && ARGV[0] == 'update')
+    proxy.update_proxies
+  else
+    puts proxy.help
+  end
+end

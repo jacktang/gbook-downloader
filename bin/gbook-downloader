@@ -1,0 +1,69 @@
+#!/usr/bin/ruby1.8
+
+require 'rubygems'
+$LOAD_PATH.unshift(File.dirname(__FILE__) + '/../lib')
+require 'downloader'
+require 'proxies'
+require 'version'
+
+module GBookDownloader
+  class Main
+
+    def initialize
+    end
+
+    def download(book_url, dest_dir)
+      begin
+        dest_dir ||= '~/gbook'
+        dest_dir = File.expand_path(dest_dir)
+        downloader = GBookDownloader::Downloader.new(book_url, dest_dir)
+        #downloader.download
+      rescue Exception => e
+        puts "ERROR!: #{e.message}"
+        puts "#{e.backtrace.join("\n")}"
+        puts "please check the input."
+        puts help
+      end
+    end
+    
+    def help
+      sep = "\n"
+      menu = "\nusage:\n  gbook-downloader <book_url> -d <save_book_dir>\n"
+      menu+= "parameters:\n"
+      menu+= "  book_url:\t\t The specified book about URL or preview URL\n"
+      menu+= "  save_book_dir:\t The place save the downloaded book. Default dir is ~/gbooks"
+      return "#{header}#{sep}#{menu}"
+    end
+
+    def header
+      return "GBookDownloader version:#{GBookDownloader::Version.value}"
+    end
+
+  end
+end
+
+if __FILE__ == $0
+  # Command sample: 
+  # gbook-downloader -d ~/gbooks http://books.google.com/books?id=mAGhveYkdToC
+  # 'http://books.google.com/books?id=Tmy8LAaVka8C'
+  # 'http://books.google.com/books?id=bkk9AAAAIAAJ'
+  downloader = GBookDownloader::Main.new
+  if(ARGV.size > 0)
+    output_dir = nil
+    book_url = nil
+
+    ARGV.each_index do |index|
+      opt = ARGV[index]
+      if(opt && (opt.strip == '-d' || opt.strip == '--dir'))
+        output_dir = ARGV[ index + 1 ]
+        index = index + 2
+      else
+        book_url = opt unless book_url
+      end
+    end
+
+    downloader.download(book_url, output_dir)
+  else
+    puts downloader.help
+  end
+end
