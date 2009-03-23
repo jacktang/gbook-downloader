@@ -5,9 +5,12 @@ require 'proxies'
 require 'proxy_http_client'
 require 'page_collector'
 require 'book_weaver'
+require 'simple_logger'
 
 module GBookDownloader
   class Downloader
+
+    include GBookDownloader::SimpleLogger
     
     attr_reader :book
     attr_reader :output_dir
@@ -16,23 +19,38 @@ module GBookDownloader
       @book = GBookDownloader::Book.new
       @book.book_id = get_book_id(book_url) 
       @output_dir = output_dir
-      @proxy_manager = GBookDownloader::Proxies::ProxyManager.new
+      @proxy_manager = GBookDownloader::Proxies::ProxyManager.new(true)
+      @proxy_manager.proxy_providers << GBookDownloader::Proxies::RosinstrumentProvider.new
     end
 
     def download
 
-      fillup_book_attributes!
-      @page_collector = GBookDownloader::PageCollector.new(@book)
+      # @proxy_manager.collect_proxies
+      @proxy_manager.load_proxy_instances
 
+      logger.info "start downloading book #{@book.book_id}"
+
+      fillup_book_attributes!
+      @page_collector = GBookDownloader::PageCollector.new(@book, @output_dir)
+      proxy_test = GBookDownloader::Proxies::ProxyManager::GOOGLE_BOOK_HOME
+      
       while((@page_collector.downloaded_page_count < @book.total_page_count) && 
                (@proxy_manager.instance_available?)) do
         proxy_instance = @proxy_manager.select
-        if(@proxy_manager.test(proxy_instance))
-          @page_collector.select_proxy(proxy_instance).collect
+
+        if(@proxy_manager.test(proxy_test, proxy_instance))
+          if(@proxy_manager.local_proxy?(proxy_instance))
+            logger.info("adopt no proxy")
+            proxy_instance = nil 
+          else
+            logger.info("adopt proxy #{proxy_instance.host}:#{proxy_instance.port}")
+          end
+          @page_collector.adopt_proxy(proxy_instance).collect
         end
       end
 
-      book_weaver = GBookDownloader::HtmlBookWeaver.new
+      logger.info("weave the book under dir #{@output_dir}")
+      book_weaver = GBookDownloader::BookWeaver::HtmlBookWeaver.new
       book_weaver.weave(@book, @output_dir)
     end
 
@@ -49,8 +67,13 @@ module GBookDownloader
       @book.preview_url = "#{book.about_url}&printsec=frontcover"
       
       http_client = GBookDownloader::ProxyHttpClient.new
-      doc = Nokogiri::HTML(http_client.get(book.about_url))
-    
+      begin
+        require 'open-uri'
+        open("#{book.about_url}&rview=#{rand(8743)}")
+        doc = Nokogiri::HTML(http_client.get(http_client))
+      rescue Exception => e
+        puts e.message
+      end
       title = doc.css('h2.title').first.text
       total_pages = doc.css('div.bookinfo_section_line').last.text
       

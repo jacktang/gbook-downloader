@@ -2,12 +2,15 @@ require 'rubygems'
 require 'nokogiri'
 require 'json'
 require 'proxy_http_client'
+require 'simple_logger'
 
 module GBookDownloader
   #
   # Collect page in every book preview
   #
   class PageCollector
+
+    include GBookDownloader::SimpleLogger
 
     attr_reader :proxy_instance
     attr_reader :book
@@ -17,12 +20,14 @@ module GBookDownloader
     def initialize(book, dest_dir)
       @book = book
       @dest_dir = dest_dir
+      @tmp_dir = '/tmp'
       @downloaded_page_count = 0
       @http_client = GBookDownloader::ProxyHttpClient.new
     end
 
     def adopt_proxy(proxy_instance)
       @proxy_instance = proxy_instance
+      return self
     end
 
     def main_script(book)
@@ -31,9 +36,13 @@ module GBookDownloader
     end
 
     def collect
+
+      # TODO: the retry should be think twice
       begin
         preview_url = @book.preview_url
         @preview_cookie = get_cookie(preview_url, @proxy_instance)
+        logger.debug('cookie is #{@preview_cookie.inspect}')
+
         load_script = main_script(@book)
         pid_prefix = prefix_in_preview(load_script)
       rescue Exception => e
@@ -49,10 +58,9 @@ module GBookDownloader
       end
 
       process_pids.each do |pid|
-        puts "process page #{pid.inspect}"
-
         purl = page_url(pid_prefix, pid)
-        
+        logger.debug "process page #{purl}"
+
         download_queue = {}
         json_response = @http_client.get(purl, @preview_cookie, @proxy_instance) do |f|
           json_response = f.read
@@ -66,7 +74,8 @@ module GBookDownloader
               @book.pages[pid] = []
             end
             if(src && @book.pages[pid][0].nil?)
-              @book.pages[pid][0] = src.gsub(/x26/,'&')
+              src = src.gsub(/x26/,'&')
+              @book.pages[pid][0] = src
               download_queue[pid] = src if @book.pages[pid][1].nil?
             end
             if(order)
@@ -82,12 +91,21 @@ module GBookDownloader
 
 
     def download_pages(download_queue, dest_dir)
+      return unless download_queue
+      
+      logger.info('start downloading book pages ...') if not download_queue.empty?
+      
+      tmp_book_dir = File.join(@tmp_dir, book.book_id)
+      FileUtils.mkdir_p(tmp_book_dir)      
+      
       download_queue.each do |pid, src|
         @http_client.get(src, @preview_cookie, @proxy_instance) do |page|
           # TODO: content-type auto recogization
-          open("#{dest_dir}/#{@book.book_id}/#{pid}.jpg", "wb") do |local_file|
+          open("#{tmp_book_dir}/#{pid}.jpg", "wb") do |local_file|
             local_file.write(page.read)
-            @book.page[pid][1] = File.expand_path(local_file.path)
+            logger.debug("download page #{src.inspect} and save as #{local_file.path}")
+            @book.pages[pid][1] = File.expand_path(local_file.path)
+            @downloaded_page_count = @downloaded_page_count + 1
           end
         end
       end
@@ -109,9 +127,9 @@ module GBookDownloader
       regexp = Regexp.compile('"prefix":"([^"]+)"')
       # puts "#{str.inspect}"
       "document.getElementById('content_ads_content').style.display ='';"
-      matches = regexp.match(str)
-      puts "===> #{matches.inspect}"
-      return matches[1].gsub(/\\x26/,'&')
+      matche = regexp.match(str)
+      # FIXME: the match might be nil
+      return matche[1].gsub(/\\x26/,'&')
     end
 
 

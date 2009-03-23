@@ -55,7 +55,11 @@ Below is the guide for installling GoogleBookDownloader and how to use it.
 
 * Usage
 <pre>
-  gbook-downloader preview-url -d book-output-dir
+  # update/setup proxy database
+  gbook-proxy updatedb
+
+  # download google book
+  gbook-downloader book-url -d book-output-dir
   sample: 
   gbook-downloader http://books.google.com/books?id=Tmy8LAaVka8C -d ~/gbooks
 </pre>                                   

@@ -4,6 +4,7 @@ require 'fileutils'
 module GBookDownloader
   module BookWeaver
     class HtmlBookWeaver < Base
+
       def initialize
         @template_file = File.expand_path(File.dirname(__FILE__) + '/../../templates/dark/book.rhtml')
       end
@@ -51,7 +52,8 @@ module GBookDownloader
         File.open(index_html, 'w') do |file|
           file.puts ERB.new(template).result(binding)
         end
-
+        
+        logger.info("open the book through #{index_html.inspect}")
       end
     end
   end
