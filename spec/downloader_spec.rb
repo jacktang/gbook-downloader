@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/spec_helper'
+require File.dirname(__c:\Users\Chris Millerin\Desktop\RenamerDiff\gbook-downloader\spec\spec_helper.rbFILE__) + '/spec_helper'
 
 describe GBookDownloader::Downloader do 
   before do
@@ -25,6 +25,6 @@ describe GBookDownloader::Downloader do
 
   it 'should warn that there is no total page count information available' do
     #book_url = ''
-    #downloader = GBookDownloader::Downloader.new(book_url, @output_dir)
+    #downloahttps://www.google.co.uk/books/edition/Airbus_A320_Limitations_and_Performance/lyhjEAAAQBAJ?hl=en&gbpv=1&dq=airbus&printsec=frontcoverder = GBookDownloader::Downloader.new(book_url, @output_dir)
   end
 end

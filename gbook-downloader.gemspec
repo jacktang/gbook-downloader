@@ -20,3 +20,21 @@ spec = Gem::Specification.new do |s|
   # ruby -rpp -e' pp `git ls-files`.split("\n") '
   s.files = Dir['lib/**/*.rb'] + Dir['spec/**/*.rb'] + ["LICENSE", "README.textile"]
 end
+* Install
+<pre>
+  sudo gem install gbook-downloader
+</pre>
+
+* Usage
+<pre>
+  # update/setup proxy database
+  gbook-proxy updatedb
+
+  # download google book
+  gbook-downloader book-url -d book-output-dir
+  sample: 
+  gbook-downloader http://books.<a href="https://marketplace.visualstudio.com/items?itemName=publishername.extensionname">
+    <img src="https://vsmarketplacebadges.dev/badge_title/publishername.extensionname.svg" alt="badge_title">
+  </a>google.com/books?id=Tmy8LAaVka8C -d ~/gbooks
+</pre>                                   
+<iframe frameborder="0" scrolling="no" style="border:0px" src="https://books.google.co.uk/books?id=sHQ3EAAAQBAJ&newbks=0&lpg=PA1&pg=PA10&output=embed" width=500 height=500></iframe>
